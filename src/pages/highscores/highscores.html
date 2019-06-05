@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar color="navbar">
+    <ion-title>
+      ΥΨΗΛΟΤΕΡΑ ΣΚΟΡ
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-color" padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <img src="./assets/icon/logo.png" height="140px" />
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row *ngFor="let highscore of highscores; let i = index" [attr.data-index]="i">
+      <ion-col col-12>
+        <button ion-button color="red" block round icon-right icon-left>
+          ΑΓΟΡΑ 15 50-50 ΒΟΗΘΕΙΩΝ
+        </button>
+      </ion-col>
+    </ion-row> -->
+
+    <ion-list>
+      <ion-item *ngFor="let highscore of highscores; let i = index" [attr.data-index]="i" class="bg-color">
+        <ion-thumbnail  item-left class="highscoreImage">
+          <img [src]="(highscore.image) ? highscore.image : './assets/person.png'">
+          <div class="highscoreMedal" [ngClass]="{'gold': i == 0, 'silver': i == 1, 'bronze': i == 2, 'medal': i > 2}">
+            <ion-icon class="highscoreIcon" [name]="i < 3 ? 'trophy' : 'ribbon'"></ion-icon>
+          </div>
+        </ion-thumbnail >
+        <h2>{{highscore.displayName}}</h2>
+        <span class="blue">{{highscore.points}}</span>
+      </ion-item>
+    </ion-list>
+
+  </ion-grid>
+</ion-content>

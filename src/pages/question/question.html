@@ -1,0 +1,133 @@
+<ion-header>
+  <ion-toolbar color="navbar">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4 style="text-align:left">
+          <ion-buttons start>
+            <button ion-button icon-left (click)="goToHomePage()" [disabled]="answerHasBeenPicked">
+              <ion-icon name="arrow-round-back"></ion-icon>
+              ΑΡΧΙΚΗ
+            </button>
+          </ion-buttons>
+        </ion-col>
+
+        <ion-col col-4 style="text-align:left">
+          <div class="questionTitle">
+            {{gameState.currentPoints}}/{{gameState.maxPoints}}pts
+            <br /> {{gameState.currentQuestion}}/{{gameState.maxQuestions}}
+          </div>
+        </ion-col>
+
+        <ion-col col-4 style="text-align:left">
+          <ion-buttons end>
+            <img style="width:2em; vertical-align:middle;" src="./assets/pointsMedal.png" />
+            <span style="color:white">{{user.points}}<br />{{user.totalCashEarned}} €</span>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-color">
+  <ion-grid>
+    <!-- <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <img src="./assets/icon/logo.png" height="140px" />
+      </ion-col>
+    </ion-row> -->
+
+    <ion-row class="GamePrice">
+      <ion-col col-3>
+        <img height="50px" [src]="gameTicket.image" />
+      </ion-col>
+      <ion-col col-6 style="text-align:center">
+        <h4 style="color:red">{{gameTicket.title}}</h4>
+      </ion-col>
+      <ion-col col-3>
+      </ion-col>
+    </ion-row>
+
+    <div class="bgImage">
+      <div class="after" [ngStyle]="{'background': 'url(' + gameTicket.image + ')', 'background-repeat': 'round'}"></div>
+      <ion-row>
+        <ion-col style="text-align:center;">
+          <h4 style="margin:0;">
+            {{question.text}}
+          </h4>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="question.image">
+        <ion-col col-12 style="text-align:center">
+          <img src="{{question.image}}" style="max-height: 200px" />
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col style="position:relative" col-6 class="choice-wrap">
+          <clock></clock>
+          <div (click)="!question.answers[0] || pickAnswer(0)" [className]="answerClasses[0]">
+            <div class="choice-text">
+              {{question.answers[0]}}
+            </div>
+          </div>
+        </ion-col>
+        <ion-col col-6 class="choice-wrap">
+          <div (click)="!question.answers[1] || pickAnswer(1)" [className]="answerClasses[1]">
+            <div class="choice-text">
+              {{question.answers[1]}}
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-6 class="choice-wrap">
+          <div (click)="!question.answers[2] || pickAnswer(2)" [className]="answerClasses[2]">
+            <div class="choice-text">
+              {{question.answers[2]}}
+            </div>
+          </div>
+        </ion-col>
+        <ion-col col-6 class="choice-wrap">
+          <div (click)="!question.answers[3] || pickAnswer(3)" [className]="answerClasses[3]">
+            <div class="choice-text">
+              {{question.answers[3]}}
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="help" col-3>
+          <button outline ion-button color="helpbutton" [disabled]="disableFiftyFifty" (click)="useFiftyFifty()">
+            50:50
+          </button>
+          <ion-badge class="helpCount" item-end>{{inventory.fiftyfifty}}</ion-badge>
+        </ion-col>
+        <ion-col class="help" col-3>
+          <button outline ion-button color="helpbutton" [disabled]="disableTimeBoost" (click)="useTimeBoost()">
+            <ion-icon name="timer"></ion-icon>
+          </button>
+          <ion-badge class="helpCount" item-end>{{inventory.timeboost}}</ion-badge>
+        </ion-col>
+        <ion-col class="help" col-3>
+          <button outline ion-button color="helpbutton" [disabled]="disablePeopleChoice" (click)="usePeopleChoice()">
+            <ion-icon name="people"></ion-icon>
+          </button>
+          <ion-badge class="helpCount" item-end>{{inventory.peoplechoice}}</ion-badge>
+        </ion-col>
+        <ion-col class="help" col-3>
+          <button outline ion-button color="helpbutton" [disabled]="disableSkip" (click)="useSkip()">
+            <ion-icon name="repeat"></ion-icon>
+          </button>
+          <ion-badge class="helpCount" item-end>{{inventory.skip}}</ion-badge>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </ion-grid>
+</ion-content>

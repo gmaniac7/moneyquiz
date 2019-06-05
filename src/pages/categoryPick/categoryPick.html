@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar color="navbar">
+    <ion-title>ΚΑΤΗΓΟΡΙΑ ΔΩΡΟΥ</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-color" padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <img src="./assets/icon/logo.png" height="140px" />
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let category of categories">
+      <ion-col col-12>
+
+        <div class="categoryButton" (tap)="goToTicketPage(category)">
+          <span class="circle"><img width="38" height="38" [src]="category.image"/></span>
+          <span class="rightIcon">
+            <ion-icon class="btn-icon" name="arrow-dropright"></ion-icon>
+          </span>
+          <span class="textWrapper">
+            <span class="text">
+              {{category.title}}
+            </span>
+          </span>
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

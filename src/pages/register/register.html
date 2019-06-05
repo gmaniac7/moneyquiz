@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color="navbar">
+    <ion-title>
+      ΕΓΓΡΑΦΗ
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-color" padding>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <img src="./assets/icon/logo.png" height="140px" />
+      </ion-col>
+    </ion-row>
+
+    <form [formGroup]="myForm">
+      <ion-row>
+        <ion-col col-12 style="text-align:center">
+          <input formControlName="firstName" placeholder="Όνομα" class="SQinput" type="text" />
+          <br />
+          <input formControlName="lastName" placeholder="Επίθετο" class="SQinput" type="text" />
+          <br />
+          <input formControlName="email" placeholder="Email" class="SQinput" type="text" email />
+          <br />
+          <input formControlName="passWord" placeholder="Δημιουργία Κωδικού" class="SQinput" type="password" />
+          <br />
+          <input formControlName="passWordRepeat" placeholder="Επαλήθευση Κωδικού" class="SQinput" type="password" />
+          <br />
+          <button ion-button color="secondary" type="submit" round icon-left (click)="register()">
+            ΕΓΓΡΑΦΗ
+          </button>
+          <div>
+            <small>
+              *Μετά την εγγραφή, θα σας αποσταλεί email για επιβεβαίωση του λογαριασμού σας. (στα εισερχόμενα ή ανεπιθύμητα email σας)
+            </small>
+          </div>
+        </ion-col>
+      </ion-row>
+    </form>
+
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,139 @@
+<ion-header>
+  <ion-toolbar color="navbar">
+    <ion-grid>
+      <ion-row>
+
+        <ion-col col-6 style="text-align:left">
+          <ion-buttons start>
+            <button ion-button icon-left (click)="goToHomePage()">
+              <ion-icon name="arrow-round-back"></ion-icon>
+              ΑΡΧΙΚΗ
+            </button>
+          </ion-buttons>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-color" padding>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <img src="./assets/icon/logo.png" height="140px" />
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+        <ion-item class="bg-color">
+          <ion-thumbnail item-left>
+            <img *ngIf="user.picture" [src]="user.image">
+            <ion-icon *ngIf="!user.picture" name="contact" style="color:gray;font-size:70px;"></ion-icon>
+          </ion-thumbnail>
+          <h2>{{user.name}}</h2>
+          <p><img style="width:2em; vertical-align:middle;" src="./assets/pointsMedal.png" /> {{user.points}}</p>
+          <p>{{user.totalCashEarned}} €</p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <span class="helpChip">
+          <div style="font-size: 0.7em; display: table-cell; vertical-align: middle;">
+            50:50
+          </div>
+        </span>
+        <div style="text-align:center">
+          {{inventory.fiftyfifty}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <span class="helpChip">
+          <ion-icon name="timer"></ion-icon>
+        </span>
+        <div style="text-align:center">
+          {{inventory.timeboost}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <span class="helpChip">
+          <ion-icon name="people"></ion-icon>
+        </span>
+        <div style="text-align:center">
+          {{inventory.peoplechoice}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <span class="helpChip">
+          <ion-icon name="repeat"></ion-icon>
+        </span>
+        <div style="text-align:center">
+          {{inventory.skip}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <div class="ticket" *ngFor="let ticket of user.coupons" (click)="showQr(ticket.code)">
+          <div class="price">
+            {{ticket.points}}pts
+          </div>
+          <div class="content">
+            <ion-row>
+              <ion-col col-3>
+                <a [href]="(ticket.business) ? ticket.business.url : ''" (click)="$event.stopPropagation()">
+                  <img width="60px" [src]="ticket.image" />
+                  <br>
+                  website
+                </a>
+              </ion-col>
+              <ion-col col-9>
+                <h4 style="margin-bottom:0;margin-top:0;">{{ticket.title}}</h4>
+                <small>{{ticket.description}}</small>
+              </ion-col>
+            </ion-row>
+          </div>
+          <div class="corner bg-color top left"></div>
+          <div class="corner bg-color top right"></div>
+          <div class="corner bg-color bottom left"></div>
+          <div class="corner bg-color bottom right"></div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <button ion-button round icon-left (click)="seeTermsAgain()">
+          Clear Terms
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <button ion-button round icon-left (click)="showtoken()">
+          <ion-icon name="logo-facebook"></ion-icon>
+          Token?
+        </button>
+      </ion-col>
+    </ion-row> -->
+
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <button ion-button round icon-left (click)="doFbLogout()">
+          ΑΠΟΣΥΝΔΕΣΗ
+        </button>
+      </ion-col>
+    </ion-row>
+
+
+
+  </ion-grid>
+</ion-content>

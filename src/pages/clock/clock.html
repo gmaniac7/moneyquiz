@@ -1,0 +1,8 @@
+<article class="clock">
+  <div [style.animation-play-state]="clockState" class="face-bckrd"></div>
+  <div class="face">
+    <div [style.animation-play-state]="clockState" class="minutes-container" (animationend)="callback()">
+      <div class="minutes"></div>
+    </div>
+  </div>
+</article>

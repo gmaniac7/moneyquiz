@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar color="navbar">
+    <ion-title>
+      ΑΓΟΡΕΣ
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-color" padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <img src="./assets/icon/logo.png" height="140px" />
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button color="red" block round icon-right icon-left (click)="buy('fifty_fifty_0')">
+          <span showWhen="android">ΑΓΟΡΑ 15 ΒΟΗΘΕΙΩΝ 50%-50%:  1,5€</span>
+          <span showWhen="ios,browser">ΑΓΟΡΑ 15 ΒΟΗΘΕΙΩΝ 50%-50%:  1,1€</span>
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button color="red" block round icon-right icon-left (click)="buy('time_boost_0')">
+          <span showWhen="android">ΑΓΟΡΑ 25 ΒΟΗΘΕΙΩΝ ΧΡΟΝΟΥ:  1,5€</span>
+          <span showWhen="ios,browser">ΑΓΟΡΑ 25 ΒΟΗΘΕΙΩΝ ΧΡΟΝΟΥ:  1,1€</span>
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+        <button showWhen="android" ion-button color="red" block round icon-right icon-left (click)="buy('people_choice_0')">
+          <span>ΑΓΟΡΑ 10 ΒΟΗΘΕΙΩΝ ΚΟΙΝΟΥ:  1,5€</span>
+        </button>
+        <button showWhen="ios,browser" ion-button color="red" block round icon-right icon-left (click)="buy('people_choice_1')">
+          <span>ΑΓΟΡΑ 10 ΒΟΗΘΕΙΩΝ ΚΟΙΝΟΥ:  1,1€</span>
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button color="red" block round icon-right icon-left (click)="buy('skip_0')">
+          <span showWhen="android">ΑΓΟΡΑ 7 ΒΟΗΘΕΙΩΝ ΠΑΡΑΚΑΜΨΗΣ:  1,5€</span>
+          <span showWhen="ios,browser">ΑΓΟΡΑ 7 ΒΟΗΘΕΙΩΝ ΠΑΡΑΚΑΜΨΗΣ:  1,1€</span>
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

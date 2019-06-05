@@ -1,0 +1,16 @@
+.helpChip {
+  border-radius: 100%;
+  border: solid 1px blue;
+  color: blue;
+  background-color: white;
+  width: 2em;
+  height: 2em;
+  display: table;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.helpChip ion-icon {
+  display: table-cell;
+  vertical-align: middle;
+}

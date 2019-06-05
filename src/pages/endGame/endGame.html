@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="navbar">
+    <ion-title>
+      ΤΕΛΟΣ ΠΑΙΧΝΙΔΙΟΥ
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-color">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <img src="./assets/icon/logo.png" height="140px" />
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <h4 *ngIf="!isCouponStillAvailable">Λυπούμαστε αλλα η παρακάτω δωροεπιταγή δεν είναι πλέον διαθέσιμη. Το τελευταίο αντίγραφο κερδήθηκε από κάποιον άλλο παίκτη.</h4>
+        <h4 *ngIf="isCouponStillAvailable && isWin">Συγχαρητήρια κερδίσατε την παρακάτω δωροεπιταγή!!</h4>
+        <h4 *ngIf="isCouponStillAvailable && !isWin">Λυπούμαστε αλλά οι πόντοι σας δεν είναι αρκετοί για να κερδίσετε την δωροεπιταγή</h4>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row *ngIf="isWin">
+      <ion-col col-12> -->
+        <div class="ticket">
+          <div class="price">
+            {{gameTicket.points}}pts
+          </div>
+          <div class="content">
+            <ion-row>
+              <ion-col col-3>
+                <a [href]="gameTicket.business.url" (click)="$event.stopPropagation()">
+                  <img width="60px" [src]="gameTicket.image" />
+                  <br>
+                  website
+                </a>
+              </ion-col>
+              <ion-col col-9>
+                <h4 style="margin-bottom:0;margin-top:0;">{{gameTicket.title}}</h4>
+                <small>{{gameTicket.description}}</small>
+              </ion-col>
+            </ion-row>
+          </div>
+          <div class="corner bg-color top left"></div>
+          <div class="corner bg-color top right"></div>
+          <div class="corner bg-color bottom left"></div>
+          <div class="corner bg-color bottom right"></div>
+        </div>
+      <!-- </ion-col>
+    </ion-row> -->
+
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button color="purple" block round (click)="goToHomePage()">
+          ΕΠΙΣΤΡΟΦΗ ΣΤΗΝ ΑΡΧΙΚΗ
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
+      <ion-col col-12>
+        <p>
+          <strong>1)</strong> Απαιτούνται 500 πόντοι για την απόκτηση κάθε δωροεπιταγής. Με κάθε σωστη απάντηση κερδίζεις 50 πόντους αν απαντηθει στα πρώτα 20’’ ενώ αν απαντηθεί στα τελευταία 10’’, κερδίζεις 40 πόντους.
+        </p>
+        <p>
+          <strong>2)</strong> Για κάθε λάθος απάντηση θα αφαιρούνται 10 πόντοι.
+        </p>
+        <p>
+          <strong>3)</strong> Για την απόκτηση του επάθλου κάθε φορά, μπορείς να απαντήσεις σε 15 ερωτήσεις το μέγιστο.
+        </p>
+        <p>
+          <strong>4)</strong> Μπορείς να χρησιμοποιήσεις όσες και όποιες βοήθειες θέλεις σε κάθε παιχνιδι!
+        </p>
+        <p>
+          <strong>5)</strong> Κάνε share στο facebook για να παρεις επιπλέον 150 ποντούς για το επόμενο παιχνίδι σου.
+        </p>
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+</ion-content>

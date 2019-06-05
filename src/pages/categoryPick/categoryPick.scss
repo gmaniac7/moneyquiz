@@ -1,0 +1,50 @@
+span.circle {
+  background-color: darkgrey;
+  height: 38px;
+  width: 38px;
+  position: absolute;
+  left: 0;
+  border-radius: 100%;
+  z-index: 1;
+  // display: table;
+}
+
+.rightIcon {
+  height: 38px;
+  width: 38px;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  display: table;
+}
+
+.btn-icon {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.categoryButton {
+  background-color: orange;
+  height: 38px;
+  text-align: center;
+  border-radius: 19px;
+  position: relative;
+  color: white;
+  width: 100%;
+  font-size: 1.2em;
+}
+
+.categoryButton .textWrapper {
+  display: table;
+  width: 100%;
+}
+
+.categoryButton .text {
+  background-color: orange;
+  height: 38px;
+  text-align: center;
+  border-radius: 19px;
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+}

@@ -1,0 +1,51 @@
+.ticket {
+  background-color: orange;
+  position: relative;
+  overflow: hidden;
+  padding: 9px;
+  margin-bottom: 15px;
+}
+
+.ticket .price {
+  /* IE 9 */
+  -ms-transform: rotate(45deg);
+  /* Chrome, Safari, Opera */
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 15px;
+  right: 0;
+  color: white;
+}
+
+.ticket .corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+}
+
+.ticket .content {
+  padding: 5px;
+  color: white;
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px;
+}
+
+.ticket .top {
+  top: -10px;
+}
+
+.ticket .bottom {
+  bottom: -10px;
+}
+
+.ticket .left {
+  left: -10px;
+}
+
+.ticket .right {
+  right: -10px;
+}

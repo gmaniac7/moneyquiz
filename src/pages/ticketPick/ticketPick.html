@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar color="navbar">
+    <ion-title>ΔΩΡΟΕΠΙΤΑΓΗ</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-color" padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <img src="./assets/icon/logo.png" height="140px" />
+      </ion-col>
+    </ion-row>
+
+    <div class="ticket" (click)="goToQuestionPage(ticket)" *ngFor="let ticket of tickets">
+      <div class="price">
+        {{ticket.points}}pts
+      </div>
+      <div class="content">
+        <ion-row>
+          <ion-col col-3>
+            <a [href]="ticket.business.url" (click)="$event.stopPropagation()">
+              <img width="60px" [src]="ticket.image" />
+              <br>
+              website
+            </a>
+          </ion-col>
+          <ion-col col-9>
+            <h4 style="margin-bottom:0;margin-top:0;">{{ticket.title}}</h4>
+            <small>{{ticket.description}}</small>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div class="corner bg-color top left"></div>
+      <div class="corner bg-color top right"></div>
+      <div class="corner bg-color bottom left"></div>
+      <div class="corner bg-color bottom right"></div>
+    </div>
+
+    <ion-row *ngIf="tickets.length == 0">
+      <ion-col col-12 style="text-align:center">
+        Λυπούμαστε αλλά δεν υπάρχουν κουπόνια στην συγκεκριμένη κατηγορία αυτήν την στιγμή.
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

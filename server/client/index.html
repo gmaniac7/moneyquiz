@@ -1,0 +1,96 @@
+<html>
+
+<head>
+  <base href="/" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Shopping Quiz Admin</title>
+  <link rel="shortcut icon" href="/img/favicon.png">
+  <link href="https://fonts.googleapis.com/css?family=Jura:400,700" rel="stylesheet">
+  <link href="/styles.css" rel="stylesheet">
+</head>
+
+<body ng-app="quizApp">
+  <div class="ui-view"></div>
+  <script type="text/ng-template" id="/admin.html">
+    <h4><img class="head-img" src="/img/favicon.png" /><b>Shopping Quiz Admin</b></h4>
+    <div class="sidenav">
+      <a ng-class="{active: $state.includes('admin.dashboard')}" ui-sref="admin.dashboard">Dashboard</a>
+      <a ng-class="{active: $state.includes('admin.coupons')}" ui-sref="admin.coupons">Coupons</a>
+      <a ng-class="{active: $state.includes('admin.couponCodes')}" ui-sref="admin.couponCodes">Coupon Codes</a>
+      <a ng-class="{active: $state.includes('admin.businesses')}" ui-sref="admin.businesses">Businesses</a>
+      <a ng-class="{active: $state.includes('admin.questions')}" ui-sref="admin.questions">Questions</a>
+      <a ng-class="{active: $state.includes('admin.categories')}" ui-sref="admin.categories">Categories</a>
+      <a ng-class="{active: $state.includes('admin.users')}" ui-sref="admin.users">Users</a>
+      <a ng-class="{active: $state.includes('admin.config')}" ui-sref="admin.config">Configuration</a>
+    </div>
+    <div class="ui-view admin-view"></div>
+  </script>
+  <script type="text/ng-template" id="/dashboard.html">
+    <div><h2>Welcome to Shopping Quiz Admin.</h2></div>
+	<p>Δείτε και επεξεργαστείτε όλες τις πληροφορίες της εφαρμογής Shopping Quiz</p>
+  </script>
+  <script type="text/ng-template" id="/coupons.html">
+    <mongo-table mt-datasource="https://admin.shopping-quiz.com/data/coupons"></mongo-table>
+  </script>
+  <script type="text/ng-template" id="/questions.html">
+    <mongo-table mt-datasource="https://admin.shopping-quiz.com/data/questions"></mongo-table>
+  </script>
+  <script type="text/ng-template" id="/users.html">
+    <mongo-table mt-datasource="https://admin.shopping-quiz.com/data/users"></mongo-table>
+  </script>
+  <script type="text/ng-template" id="/categories.html">
+    <mongo-table mt-datasource="https://admin.shopping-quiz.com/data/categories"></mongo-table>
+  </script>
+  <script type="text/ng-template" id="/businesses.html">
+    <mongo-table mt-datasource="https://admin.shopping-quiz.com/data/businesses"></mongo-table>
+  </script>
+  <script type="text/ng-template" id="/config.html">
+    <mongo-table mt-datasource="https://admin.shopping-quiz.com/data/vars"></mongo-table>
+  </script>
+  <script type="text/ng-template" id="/couponCodes.html">
+    <mongo-table mt-datasource="https://admin.shopping-quiz.com/data/couponCodes"></mongo-table>
+  </script>
+  <script type="text/ng-template" id="/mongo-table.html">
+    <table class="mongo-table" border="0">
+      <tr class="mongo-row mongo-meta-row">
+        <td class="mongo-field mongo-meta-field" ng-repeat="field in metadata">{{ field.name }}</td>
+      </tr>
+      <tr class="mongo-row mongo-data-row" ng-class="{ new: $first }" ng-repeat="row in data">
+        <td class="mongo-field mongo-data-field" ng-click="field.type && field.type != 'image' && field.type != 'foreign_key' && field.type != 'boolean'  && field.type != 'customAction' && editValue(row, field.key, $parent.$first)" ng-style="{ whiteSpace: field.type == 'image' ? 'nowrap' : 'inherit' }" ng-repeat="field in metadata">
+          <span ng-if="field.type == 'text' || field.type == 'number'">{{ getValueFromKeyPath(row, field.key) }}</span>
+          <button ng-if="field.type == 'image' && row[field.key]" ng-click="viewImage(row[field.key])" >View</button>
+          <button ng-if="field.type == 'image'" ng-click="editValue(row, field.key, $parent.$parent.$first)">Edit</button>
+          <input type="file" ng-if="field.type == 'image'" onchange="angular.element(this).scope().uploadFile(this)" ng-attr-data-rowid="{{ row._id }}" ng-attr-data-fieldkey="{{ field.key }}" ng-attr-data-isnew="{{ $parent.$parent.$first }}" />
+          <button ng-if="$last && $parent.$first" ng-click="insertRow(row)">Add</button>
+          <button ng-if="$last && !$parent.$first" ng-click="deleteRow(row)">Delete</button>
+          <input type="checkbox" ng-if="field.type == 'boolean'" ng-click="toggleBoolean(row, field.key, $event, $parent.$parent.$first)" ng-checked="row[field.key]" />
+          <select ng-if="field.type == 'foreign_key'" ng-change="!$parent.$parent.$first && patch(row._id, field.key, row[field.key])" ng-model="row[field.key]" ng-disabled="!field.options.length">
+            <option value="{{ option._id }}" ng-repeat="option in field.options">{{option.title}}</option>
+          </select>
+          <button ng-if="field.type == 'customAction'" ng-click="callCustomAction(field.key, row)">{{ field.name }}</button>
+        </td>
+      </tr>
+    </table>
+  </script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript">
+    /**
+     * You must include the dependency on 'ngMaterial'
+     */
+    angular.module('quizApp', ['ngMaterial', 'ui.router']);
+  </script>
+  <script src="/src/main.js"></script>
+</body>
+
+</html>

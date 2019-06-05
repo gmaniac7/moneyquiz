@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar color="navbar">
+    <ion-title>
+      ΕΓΓΡΑΦΗ
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-color" padding>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <img src="./assets/icon/logo.png" height="140px" />
+      </ion-col>
+    </ion-row>
+
+    <form [formGroup]="myForm">
+      <ion-row>
+        <ion-col col-12 style="text-align:center">
+          <input formControlName="email" placeholder="Email" class="SQinput" type="text" email />
+          <br />
+          <button ion-button color="secondary" type="submit" round icon-left (click)="register()">
+            ΕΓΓΡΑΦΗ
+          </button>
+        </ion-col>
+      </ion-row>
+    </form>
+
+  </ion-grid>
+</ion-content>

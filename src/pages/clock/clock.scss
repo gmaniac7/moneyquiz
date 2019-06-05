@@ -1,0 +1,70 @@
+.clock {
+  position: absolute;
+  height: 80px;
+  width: 80px;
+  right: -40px;
+  bottom: -40px;
+  z-index:1;
+}
+@keyframes rotate {
+  0% {
+    transform: rotateZ(-12deg);
+  }
+
+  100% {
+    transform: rotateZ(348deg);
+  }
+}
+@keyframes gradient {
+  0% {
+    background-color: lightgreen;
+  }
+
+  100% {
+    background-color: red;
+  }
+}
+
+.face,
+.minutes-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.face-bckrd {
+  position: absolute;
+  animation: gradient 30s normal cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  background-color: red;
+  border-radius: 100%;
+  left: 5.56%;
+  top: 5.56%;
+  height: 88.88%;
+  width: 88.88%;
+}
+
+.stopped {
+  animation-play-state: paused;
+}
+
+.face {
+  background-image: url('./../assets/Clock.svg');
+  background-size: 100%;
+}
+
+.minutes-container {
+  transform: rotateZ(-12deg);
+  animation: rotate 30s normal linear;
+}
+
+.minutes {
+  background: #000;
+  height: 40%;
+  left: 49%;
+  position: absolute;
+  top: 10%;
+  transform-origin: 50% 100%;
+  width: 2%;
+}

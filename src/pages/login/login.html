@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-navbar color="navbar">
+    <ion-title>
+      ΣΥΝΔΕΣΗ
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-color" padding>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <img src="./assets/icon/logo.png" height="140px" />
+      </ion-col>
+    </ion-row>
+
+    <form [formGroup]="myForm">
+      <ion-row>
+        <ion-col col-12 style="text-align:center">
+          <span style="font-size: 0.9em">
+            αν έχετε ήδη λογαριασμό
+          </span>
+          <br />
+          <input formControlName="userName" placeholder="Email" class="SQinput" type="text" />
+          <br />
+          <input formControlName="passWord" placeholder="Κωδικός" class="SQinput" type="password" />
+          <br />
+          <button ion-button color="purple" type="submit" round icon-left (click)="login('SQ')">
+            ΣΥΝΔΕΣΗ
+          </button>
+          <button ion-button class="skip" type="submit" round icon-left (click)="skip()">
+            SKIP
+          </button>
+          <button ion-button round icon-left (click)="login('FB')">
+            <ion-icon name="logo-facebook"></ion-icon>
+            ΣΥΝΔΕΣΗ ΜΕΣΩ FACEBOOK
+          </button>
+          <br />
+          <span style="font-size: 0.9em">
+            δεν έχετε λογαριασμό; <span (click)="goToRegisterPage()" style="color: blue;text-decoration: underline;">εγγραφή εδώ (απαιτείται σύνδεση στο ίντερνετ)</span>
+          </span>
+        </ion-col>
+      </ion-row>
+    </form>
+
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <hr />
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <div class="oval-thought">
+        Για όποια απορία, στείλτε μας μήνυμα στην επίσημη σελίδα μας στο Instagram: <a target="_blank" style="color: #f4782a;" href="https://www.instagram.com/epsiloninnovations/">@epsiloninnovations</a>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!--- <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <hr />
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <button ion-button round icon-left (click)="login('FB')">
+          <ion-icon name="logo-facebook"></ion-icon>
+          ΣΥΝΔΕΣΗ ΜΕΣΩ FACEBOOK
+        </button>
+      </ion-col>
+    </ion-row> --->
+
+    <!-- <ion-row>
+      <ion-col col-12 style="text-align:center">
+        <button ion-button round icon-left (click)="showtoken()">
+          <ion-icon name="logo-facebook"></ion-icon>
+          Token?
+        </button>
+      </ion-col>
+    </ion-row> -->
+
+  </ion-grid>
+</ion-content>
