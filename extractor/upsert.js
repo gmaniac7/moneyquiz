@@ -5,9 +5,11 @@ const db = require('./output');
 console.log('Db loaded.');
 
 (async() => {
-	let mongoAuth = `admin:${encodeURIComponent(`}EJ}WX/,D6S#<kes`)}@`;
-	let mongoUrl = `mongodb://${mongoAuth}104.199.107.178:27017/quizapp?authSource=admin`;
+	//let mongoAuth = `admin:${encodeURIComponent(`}EJ}WX/,D6S#<kes`)}@`;
+	let mongoAuth = `admin:${encodeURIComponent(`admin123`)}@`;
+	let mongoUrl = `mongodb://${mongoAuth}35.233.36.227:27017/admin?authSource=admin`;
 	dbc = await new mongodb.MongoClient().connect(mongoUrl);
+	console.log(dbc);
 	console.log('Mongodb connected.');
 
 	let record, c = 0;

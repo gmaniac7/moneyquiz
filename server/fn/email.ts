@@ -31,7 +31,7 @@ export default async function email(to, subject, html, text): Promise<any> {
 
     req.write(require('querystring').stringify({
       apikey: '154f3a2b-2e47-48b6-bb40-c81892729121',
-      from: 'noreply@shopping-quiz.com',
+      from: 'noreply@moneyquiz.gr',
       fromName: 'Shopping Quiz',
       subject: subject,
       bodyHtml: html,

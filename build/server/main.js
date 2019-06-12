@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const Server_1 = require("./classes/Server");
-//process.title = 'quizapp';
-process.title = 'moneyquizapp';
+process.title = 'quizapp';
+//process.title = 'moneyquizapp';
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
 const basicAuth = require('express-basic-auth');

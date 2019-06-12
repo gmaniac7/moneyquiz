@@ -41,9 +41,9 @@ try {
 }
 
 (async () => {
-  let mongoAuth = `admin:${encodeURIComponent(`}EJ}WX/,D6S#<kes`)}@`;
+  let mongoAuth = `admin:${encodeURIComponent(`admin123`)}@`;
   // let mongoUrl = `mongodb://${mongoAuth}quizapp:27017/quizapp?authSource=admin`;
-  let mongoUrl = `mongodb://${mongoAuth}104.199.107.178:27017/quizapp?authSource=admin`;
+  let mongoUrl = `mongodb://${mongoAuth}35.233.36.227:27017/quizapp?authSource=admin`;
 
   db = await new mongodb.MongoClient().connect(mongoUrl);
   console.log('Mongodb connected.');
