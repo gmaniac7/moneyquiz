@@ -21,7 +21,7 @@ export class UserPage {
   }
 
   showQr(ticketCode: string) {
-    this.popoverCtrl.create(QrPage, { url: 'https://api.shopping-quiz.com/qr/' + ticketCode + '.svg' }).present();
+    this.popoverCtrl.create(QrPage, { url: 'https://api.moneyquiz.gr/qr/' + ticketCode + '.svg' }).present();
   }
 
   showtoken() {

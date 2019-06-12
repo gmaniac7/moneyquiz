@@ -43,7 +43,7 @@ export class TermsPage {
           var headers = new Headers();
           headers.append('x-sqtoken', token);
           var requestOption = new RequestOptions({ headers: headers });
-          this.http.get("https://api.shopping-quiz.com/v1/data/text", requestOption)
+          this.http.get("https://api.moneyquiz.gr/v1/data/text", requestOption)
             .map(res => res.json())
             .toPromise().then((text) => {
               resolve(text);

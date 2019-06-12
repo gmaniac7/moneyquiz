@@ -8,7 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const Server_1 = require("./classes/Server");
-process.title = 'quizapp';
+//process.title = 'quizapp';
+process.title = 'moneyquizapp';
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
 const basicAuth = require('express-basic-auth');
@@ -42,9 +43,11 @@ catch (err) {
     loadSecret();
 }
 (() => __awaiter(this, void 0, void 0, function* () {
-    let mongoAuth = `admin:${encodeURIComponent(`}EJ}WX/,D6S#<kes`)}@`;
+    //let mongoAuth = `admin:${encodeURIComponent(`}EJ}WX/,D6S#<kes`)}@`;
+    let mongoAuth = `admin:${encodeURIComponent(`admin123`)}@`;
     // let mongoUrl = `mongodb://${mongoAuth}quizapp:27017/quizapp?authSource=admin`;
-    let mongoUrl = `mongodb://${mongoAuth}104.199.107.178:27017/quizapp?authSource=admin`;
+    //let mongoUrl = `mongodb://${mongoAuth}104.199.107.178:27017/quizapp?authSource=admin`;
+    let mongoUrl = `mongodb://${mongoAuth}35.233.36.227:27017/admin?authSource=admin`;
     db = yield new mongodb.MongoClient().connect(mongoUrl);
     console.log('Mongodb connected.');
     redis = new Redis();

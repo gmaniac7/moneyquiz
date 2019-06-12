@@ -126,7 +126,7 @@ export class LoginPage {
   getTokenUsingFbToken(FbToken) {
     return new Promise<string>((resolve, reject) => {
       //TODO: take api url from enviroment config
-      this.http.get("https://api.shopping-quiz.com/v1/fblogin/" + FbToken)
+      this.http.get("https://api.moneyquiz.gr/v1/fblogin/" + FbToken)
         .map((res) => {
           return res.text();
         })
@@ -148,7 +148,7 @@ export class LoginPage {
 
     return new Promise<string>((resolve, reject) => {
       //TODO: take api url from enviroment config
-      this.http.post("https://api.shopping-quiz.com/v1/login", loginBody)
+      this.http.post("https://api.moneyquiz.gr/v1/login", loginBody)
         .map(res => res.text())
         .toPromise()
         .then((token) => {
@@ -182,7 +182,7 @@ export class LoginPage {
       var requestOption = new RequestOptions({ headers: headers });
 
       //TODO: take api url from enviroment config
-      this.http.get("https://api.shopping-quiz.com/v1/data/me", requestOption)
+      this.http.get("https://api.moneyquiz.gr/v1/data/me", requestOption)
         .map((res) => {
           var user = res.json();
           user.name = ((user.firstName) ? user.firstName : "") + " " + ((user.lastName) ? user.lastName : "");
@@ -213,7 +213,7 @@ export class LoginPage {
       var requestOption = new RequestOptions({ headers: headers });
 
       //TODO: take api url from enviroment config
-      this.http.get("https://api.shopping-quiz.com/v1/data/categories", requestOption)
+      this.http.get("https://api.moneyquiz.gr/v1/data/categories", requestOption)
         .map(res => res.json())
         .toPromise()
         .then((categories) => {
@@ -240,7 +240,7 @@ export class LoginPage {
       var requestOption = new RequestOptions({ headers: headers });
 
       //TODO: take api url from enviroment config
-      this.http.get("https://api.shopping-quiz.com/v1/data/coupons", requestOption)
+      this.http.get("https://api.moneyquiz.gr/v1/data/coupons", requestOption)
         .map(res => res.json())
         .toPromise()
         .then((tickets) => {
@@ -267,7 +267,7 @@ export class LoginPage {
       var requestOption = new RequestOptions({ headers: headers });
 
       //TODO: take api url from enviroment config
-      this.http.get("https://api.shopping-quiz.com/v1/data/highscores", requestOption)
+      this.http.get("https://api.moneyquiz.gr/v1/data/highscores", requestOption)
         .map(res => res.json())
         .toPromise()
         .then((highscores) => {

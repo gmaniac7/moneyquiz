@@ -124,15 +124,15 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, crypt
                                 }
                             });
                             // Write coupon qrcode in disk
-                            qr.image(`https://api.shopping-quiz.com/v1/coupon/${req.user._id}/${code}`, { type: 'svg' })
+                            qr.image(`https://api.moneyquiz.gr/v1/coupon/${req.user._id}/${code}`, { type: 'svg' })
                                 .pipe(fs_1.createWriteStream(path.resolve(__dirname, `../../../server/client/qr/${code}.svg`)));
                             // Email coupon to user
-                            let qrUrl = `https://api.shopping-quiz.com/qr/${code}.svg`;
-                            let ckUrl = `https://api.shopping-quiz.com/v1/coupon/${req.user._id}/${code}`;
-                            email_1.default(req.user.email, `Κουπόνι Shopping Quiz!`, `Κερδίσατε το παρακάτω κουπόνι:<br/><br/><a href="${qrUrl}">${qrUrl}</a><br/><img src=""></img><h3>${coupon.title}</h3><p>${coupon.description}</p><br /><b>Κωδικός: ${code}</b> <br /><b>link ακύρωσης: <a href="${ckUrl}">https://api.shopping-quiz.com/v1/coupon/${req.user._id}/${code}</a></b> <br /><img style="max-width:500px" src="${business.image}"/> <br /><h3>${business.title}</h3> <br /><p>${business.description}</p> `, `Κερδίσατε το παρακάτω κουπόνι:\n\n${qrUrl}\n${coupon.title} ${coupon.description} (${code}) \n${business.title}\n${business.description} `);
+                            let qrUrl = `https://api.moneyquiz.gr/qr/${code}.svg`;
+                            let ckUrl = `https://api.moneyquiz.gr/v1/coupon/${req.user._id}/${code}`;
+                            email_1.default(req.user.email, `Κουπόνι Shopping Quiz!`, `Κερδίσατε το παρακάτω κουπόνι:<br/><br/><a href="${qrUrl}">${qrUrl}</a><br/><img src=""></img><h3>${coupon.title}</h3><p>${coupon.description}</p><br /><b>Κωδικός: ${code}</b> <br /><b>link ακύρωσης: <a href="${ckUrl}">https://api.moneyquiz.gr/v1/coupon/${req.user._id}/${code}</a></b> <br /><img style="max-width:500px" src="${business.image}"/> <br /><h3>${business.title}</h3> <br /><p>${business.description}</p> `, `Κερδίσατε το παρακάτω κουπόνι:\n\n${qrUrl}\n${coupon.title} ${coupon.description} (${code}) \n${business.title}\n${business.description} `);
                             //Email coupon to business
                             if (business.email)
-                                email_1.default(business.email, `Κουπόνι Shopping Quiz!`, `Κερδήθηκε, από τον ${req.user.firstName} ${req.user.lastName} (${req.user.email}), το παρακάτω κουπόνι:<br/><br/><a href="${qrUrl}">${qrUrl}</a><br/><b>${coupon.title} ${coupon.description} (${code})</b> <br /><img style="max-width:500px" src="${business.image}"/> <br /><h3>${business.title}</h3> <br /><p>${business.description}</p> <br /><br /> Για να το ακυρωσετε πηγαινετε εδω: http://api.shopping-quiz.com/v1/coupon/${req.user._id}/${code}`, `Κερδήθηκε, από τον ${req.user.firstName} ${req.user.lastName} (${req.user.email}), το παρακάτω κουπόνι:\n\n${qrUrl}\n${coupon.title} ${coupon.description} (${code}) \n${business.title}\n${business.description} `);
+                                email_1.default(business.email, `Κουπόνι Shopping Quiz!`, `Κερδήθηκε, από τον ${req.user.firstName} ${req.user.lastName} (${req.user.email}), το παρακάτω κουπόνι:<br/><br/><a href="${qrUrl}">${qrUrl}</a><br/><b>${coupon.title} ${coupon.description} (${code})</b> <br /><img style="max-width:500px" src="${business.image}"/> <br /><h3>${business.title}</h3> <br /><p>${business.description}</p> <br /><br /> Για να το ακυρωσετε πηγαινετε εδω: http://api.moneyquiz.gr/v1/coupon/${req.user._id}/${code}`, `Κερδήθηκε, από τον ${req.user.firstName} ${req.user.lastName} (${req.user.email}), το παρακάτω κουπόνι:\n\n${qrUrl}\n${coupon.title} ${coupon.description} (${code}) \n${business.title}\n${business.description} `);
                         }
                         // Delete session
                         yield redis.del(seskey);

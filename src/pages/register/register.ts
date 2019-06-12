@@ -62,7 +62,7 @@ export class RegisterPage {
       password: this.myForm.controls["passWord"].value
     };
 
-    this.http.post("https://api.shopping-quiz.com/v1/register", Body)
+    this.http.post("https://api.moneyquiz.gr/v1/register", Body)
       .map(res => res.text())
       .toPromise()
       .then((token) => {

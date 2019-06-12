@@ -7,6 +7,7 @@ import { tickets } from '../../definitions/tickets';
 import { categories } from '../../definitions/categories';
 import { GameState } from '../../definitions/GameState';
 import { Question } from '../../definitions/question';
+import { TicketService } from '../../services/ticket-service';
 
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -19,18 +20,19 @@ import 'rxjs/add/operator/retry';
 })
 export class TicketPickPage {
 
-  constructor(private alertCtrl: AlertController, private loadingCtrl: LoadingController, private http: Http, public navCtrl: NavController, private alertController: ToastController, public params: NavParams, private nativeStorage: NativeStorage) {
+  constructor(private alertCtrl: AlertController, public ticketService: TicketService, private loadingCtrl: LoadingController, private http: Http, public navCtrl: NavController, private alertController: ToastController, public params: NavParams, private nativeStorage: NativeStorage) {
     var ticketCategory: categories = params.get("ticketCategory");
     this.tickets = new Array<tickets>();
 
-    this.nativeStorage.getItem('tickets')
-      .then((tickets) => {
+    //this.nativeStorage.getItem('tickets')
+    this.tickets = ticketService.getAll();
+    /*  .then((tickets) => {
         this.tickets = tickets.filter((item) => {
           return item.category_id == ticketCategory._id;
         });
       }, (error) => {
         console.log(error);
-      });
+      });*/
   }
   tickets: tickets[] = [];
   rootPage = QuestionPage;
@@ -59,11 +61,11 @@ export class TicketPickPage {
               headers.append('x-sqtoken', SQtoken);
               var requestOption = new RequestOptions({ headers: headers });
 
-              this.http.get('https://api.shopping-quiz.com/v1/game/start/' + ticket._id, requestOption)
+              this.http.get('https://api.moneyquiz.gr/v1/game/start/' + ticket._id, requestOption)
                 .map(res => res.text())
                 .toPromise()
                 .then((sessionID) => {
-                  this.http.post('https://api.shopping-quiz.com/v1/game/next/' + sessionID, {}, requestOption)
+                  this.http.post('https://api.moneyquiz.gr/v1/game/next/' + sessionID, {}, requestOption)
                     .map(res => res.json())
                     .retry(3)
                     .toPromise()

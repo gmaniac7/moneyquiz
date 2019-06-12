@@ -33,6 +33,8 @@ import { Facebook } from '@ionic-native/Facebook';
 import { InAppPurchase } from '@ionic-native/in-app-purchase';
 
 import { QuestionsService } from '../services/QuestionsService';
+import { CategoryService } from '../services/category-service';
+import { TicketService } from '../services/ticket-service';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,8 @@ import { QuestionsService } from '../services/QuestionsService';
     StatusBar,
     SplashScreen,
     QuestionsService,
+    CategoryService,
+    TicketService,
     NativeStorage,
     AdMobFree,
     Facebook,

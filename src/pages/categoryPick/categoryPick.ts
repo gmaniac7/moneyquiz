@@ -4,6 +4,7 @@ import { TicketPickPage } from '../ticketPick/ticketPick';
 import { AboutPage } from '../about/about';
 import { categories } from '../../definitions/categories';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { CategoryService } from '../../services/category-service';
 
 @Component({
   selector: 'category-pick',
@@ -11,13 +12,15 @@ import { NativeStorage } from '@ionic-native/native-storage';
 })
 export class CategoryPickPage {
 
-  constructor(public navCtrl: NavController, private alertController: ToastController, private nativeStorage: NativeStorage) {
-    this.nativeStorage.getItem('categories')
+  constructor(public navCtrl: NavController, public categoryService: CategoryService, private alertController: ToastController, private nativeStorage: NativeStorage) {
+    /*this.nativeStorage.getItem('categories')
       .then((categories) => {
         this.categories = categories;
       }, (error) => {
         console.log(error);
-      });
+      });*/
+
+      this.categories = categoryService.getAll();
   }
 
   categories: [categories] = null;

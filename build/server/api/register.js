@@ -19,7 +19,7 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, encry
                 for (let field of ['username', 'password', 'firstName', 'lastName'])
                     if (!req.body[field])
                         return res.status(400).send('Fields username, password, firstName, lastName are required.');
-                let link = `https://api.shopping-quiz.com/v1/verify/${encrypt(JSON.stringify({
+                let link = `https://api.moneyquiz.gr/v1/verify/${encrypt(JSON.stringify({
                     username: String(req.body.username),
                     password: String(req.body.password),
                     firstName: String(req.body.firstName),

@@ -37,9 +37,10 @@ function email(to, subject, html, text) {
                 });
             });
             req.write(require('querystring').stringify({
-                apikey: '154f3a2b-2e47-48b6-bb40-c81892729121',
-                from: 'noreply@shopping-quiz.com',
-                fromName: 'Shopping Quiz',
+                //apikey: '154f3a2b-2e47-48b6-bb40-c81892729121',
+                apikey: '67fa1a5f-32ba-4481-bddc-48105e559f36',
+                from: 'noreply@moneyquiz.gr',
+                fromName: 'MoneyQuiz',
                 subject: subject,
                 bodyHtml: html,
                 bodyText: text,

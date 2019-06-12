@@ -96,7 +96,7 @@ export class QuestionPage {
         headers.append('x-sqtoken', SQtoken);
         var requestOption = new RequestOptions({ headers: headers });
 
-        this.http.get("https://api.shopping-quiz.com/v1/game/help/fiftyfifty/" + this.gameState.sessionID, requestOption)
+        this.http.get("https://api.moneyquiz.gr/v1/game/help/fiftyfifty/" + this.gameState.sessionID, requestOption)
           .map(res => res.json())
           .toPromise()
           .then((resp: fiftyfiftyResp) => {
@@ -125,7 +125,7 @@ export class QuestionPage {
         headers.append('x-sqtoken', SQtoken);
         var requestOption = new RequestOptions({ headers: headers });
 
-        this.http.get("https://api.shopping-quiz.com/v1/game/help/timeboost/" + this.gameState.sessionID, requestOption)
+        this.http.get("https://api.moneyquiz.gr/v1/game/help/timeboost/" + this.gameState.sessionID, requestOption)
           .map(res => res.text())
           .toPromise()
           .then(() => {
@@ -152,7 +152,7 @@ export class QuestionPage {
         headers.append('x-sqtoken', SQtoken);
         var requestOption = new RequestOptions({ headers: headers });
 
-        this.http.get("https://api.shopping-quiz.com/v1/game/help/peoplechoice/" + this.gameState.sessionID, requestOption)
+        this.http.get("https://api.moneyquiz.gr/v1/game/help/peoplechoice/" + this.gameState.sessionID, requestOption)
           .map(res => res.json())
           .toPromise()
           .then((choices) => {
@@ -178,7 +178,7 @@ export class QuestionPage {
         headers.append('x-sqtoken', SQtoken);
         var requestOption = new RequestOptions({ headers: headers });
 
-        this.http.get("https://api.shopping-quiz.com/v1/game/help/skip/" + this.gameState.sessionID, requestOption)
+        this.http.get("https://api.moneyquiz.gr/v1/game/help/skip/" + this.gameState.sessionID, requestOption)
           .map(res => res.text())
           .toPromise()
           .then(() => {
@@ -206,7 +206,7 @@ export class QuestionPage {
       var requestOption = new RequestOptions({ headers: headers });
 
       //TODO: take api url from enviroment config
-      this.http.get("https://api.shopping-quiz.com/v1/data/me", requestOption)
+      this.http.get("https://api.moneyquiz.gr/v1/data/me", requestOption)
         .map((res) => {
           var user = res.json();
           user.name = ((user.firstName) ? user.firstName : "") + " " + ((user.lastName) ? user.lastName : "");
@@ -254,7 +254,7 @@ export class QuestionPage {
         headers.append('x-sqtoken', SQtoken);
         var requestOption = new RequestOptions({ headers: headers });
 
-        var nextProm = this.http.post('https://api.shopping-quiz.com/v1/game/next/' + this.gameState.sessionID, { answer: pickedAnswerText }, requestOption)
+        var nextProm = this.http.post('https://api.moneyquiz.gr/v1/game/next/' + this.gameState.sessionID, { answer: pickedAnswerText }, requestOption)
           .map(res => res.json())
           .retry(3)
           .toPromise();

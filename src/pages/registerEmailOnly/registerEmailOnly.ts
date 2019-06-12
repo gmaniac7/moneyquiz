@@ -54,7 +54,7 @@ export class registerEmailOnlyPage {
       lastName: this.lastName
     };
 
-    this.http.post("https://api.shopping-quiz.com/v1/registeremail", Body)
+    this.http.post("https://api.moneyquiz.gr/v1/registeremail", Body)
       .map(res => res.text())
       .toPromise()
       .then((token) => {

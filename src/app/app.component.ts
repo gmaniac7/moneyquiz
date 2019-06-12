@@ -67,7 +67,7 @@ export class MyApp {
            var headers = new Headers();
            headers.append('x-sqtoken', token);
            var requestOption = new RequestOptions({ headers: headers });
-           this.http.get("https://api.shopping-quiz.com/v1/data/text", requestOption)
+           this.http.get("https://api.moneyquiz.gr/v1/data/text", requestOption)
              .map(res => res.json())
              .toPromise().then((text) => {
                resolve(text);
@@ -91,7 +91,7 @@ export class MyApp {
           var requestOption = new RequestOptions({ headers: headers });
 
           //TODO: take api url from enviroment config
-          this.http.get("https://api.shopping-quiz.com/v1/data/categories", requestOption)
+          this.http.get("https://api.moneyquiz.gr/v1/data/categories", requestOption)
             .map(res => res.json())
             .toPromise().then((categories) => {
               resolve(categories);
@@ -132,7 +132,7 @@ export class MyApp {
           var requestOption = new RequestOptions({ headers: headers });
 
           //TODO: take api url from enviroment config
-          this.http.get("https://api.shopping-quiz.com/v1/data/coupons", requestOption)
+          this.http.get("https://api.moneyquiz.gr/v1/data/coupons", requestOption)
             .map(res => res.json())
             .toPromise().then((tickets) => {
               resolve(tickets);
@@ -166,7 +166,7 @@ export class MyApp {
           var requestOption = new RequestOptions({ headers: headers });
 
           //TODO: take api url from enviroment config
-          this.http.get("https://api.shopping-quiz.com/v1/data/highscores", requestOption)
+          this.http.get("https://api.moneyquiz.gr/v1/data/highscores", requestOption)
             .map(res => res.json())
             .toPromise()
             .then((highscores) => {
