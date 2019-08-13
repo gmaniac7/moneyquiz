@@ -7,7 +7,7 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, crypt
       let coupon = await db.collection('coupons').findOne({ _id: mongodb.ObjectID(req.params.coupon_id), available: true });
 
       //check if the user has won a coupon from the same company that has not been used yet
-      let userExists = await db.collection('users').findOne({ "_id": mongodb.ObjectID(req.user._id), coupons: { $elemMatch: { "used": false, "business._id": mongodb.ObjectID(coupon.business_id) } } });
+      let userExists = await db.collection('system.users').findOne({ "_id": mongodb.ObjectID(req.user._id), coupons: { $elemMatch: { "used": false, "business._id": mongodb.ObjectID(coupon.business_id) } } });
       // let userExists = await db.colletion("user").findOne({_id: mongodb.ObjectID(req.user._id), "coupons.used": false, "coupons.business._id": mongodb.ObjectID(coupon.business_id)}); //
       if (!!userExists)
         return res.status(412).send('You have already won a coupon from the same company that you have not used yet.');
@@ -25,7 +25,7 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, crypt
             if (Date.now() - recentCoupons[0].wonAt < 2 * dayInMs)
               return res.status(406).send('You need more GoForMore points.');
             else
-              await db.collection('user').update({ _id: mongodb.ObjectID(req.user._id) }, { $inc: { goForMore: 3 } });
+              await db.collection('system.users').update({ _id: mongodb.ObjectID(req.user._id) }, { $inc: { goForMore: 3 } });
 
       }
 

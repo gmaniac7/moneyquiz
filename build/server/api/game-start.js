@@ -3,7 +3,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
 module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, crypto, secret, makeToken, createUser, fb, rollbar }) => {
@@ -12,7 +12,7 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, crypt
             // Get coupon info
             let coupon = yield db.collection('coupons').findOne({ _id: mongodb.ObjectID(req.params.coupon_id), available: true });
             //check if the user has won a coupon from the same company that has not been used yet
-            let userExists = yield db.collection('users').findOne({ "_id": mongodb.ObjectID(req.user._id), coupons: { $elemMatch: { "used": false, "business._id": mongodb.ObjectID(coupon.business_id) } } });
+            let userExists = yield db.collection('system.users').findOne({ "_id": mongodb.ObjectID(req.user._id), coupons: { $elemMatch: { "used": false, "business._id": mongodb.ObjectID(coupon.business_id) } } });
             // let userExists = await db.colletion("user").findOne({_id: mongodb.ObjectID(req.user._id), "coupons.used": false, "coupons.business._id": mongodb.ObjectID(coupon.business_id)}); //
             if (!!userExists)
                 return res.status(412).send('You have already won a coupon from the same company that you have not used yet.');
@@ -27,7 +27,7 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, crypt
                         if (Date.now() - recentCoupons[0].wonAt < 2 * dayInMs)
                             return res.status(406).send('You need more GoForMore points.');
                         else
-                            yield db.collection('user').update({ _id: mongodb.ObjectID(req.user._id) }, { $inc: { goForMore: 3 } });
+                            yield db.collection('system.users').update({ _id: mongodb.ObjectID(req.user._id) }, { $inc: { goForMore: 3 } });
             }
             // If no coupon found return with error
             if (!coupon)

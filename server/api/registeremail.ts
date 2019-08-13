@@ -6,8 +6,8 @@ module.exports = async ({app, auth, mongodb, redis, uuid, db, redlock, shuffle, 
     try {
       console.log('register email call received');
       let [emailSubject, emailHtml, emailText] = (await db.collection('vars').findOne({ key: 'registerEmailTemplate' })).value;
-      let user = await db.collection('users').findOne({ fbid: req.body.fbid });
-      let user2 = await db.collection('users').findOne({ email: req.body.username });
+      let user = await db.collection('system.users').findOne({ fbid: req.body.fbid });
+      let user2 = await db.collection('system.users').findOne({ email: req.body.username });
       if (user || user2)
         res.status(402).send('User exists.');
       else {

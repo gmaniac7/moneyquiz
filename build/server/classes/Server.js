@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const methodOverride = require("method-override");
 const multipart = require("connect-multiparty");
 const eventemitter2_1 = require("eventemitter2");
@@ -98,6 +99,5 @@ class Server extends eventemitter2_1.EventEmitter2 {
         this.httpServer.on('listening', () => this.emit('listening'));
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Server;
 ;

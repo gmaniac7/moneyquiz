@@ -4,9 +4,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const email_1 = require("../fn/email");
 const fs_1 = require("fs");
 const path = require("path");
@@ -103,7 +104,7 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, crypt
                             let business = yield db.collection('businesses').findOne({ _id: mongodb.ObjectID(coupon.business_id) });
                             // return res.send(`after finding business id for coupon: ${JSON.stringify(business)}`);
                             // Update user record
-                            yield db.collection('users').update({ _id: mongodb.ObjectID(req.user._id) }, {
+                            yield db.collection('system.users').update({ _id: mongodb.ObjectID(req.user._id) }, {
                                 $inc: {
                                     totalCashEarned: +coupon.value,
                                     goForMore: -1
@@ -128,8 +129,7 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, crypt
                                 .pipe(fs_1.createWriteStream(path.resolve(__dirname, `../../../server/client/qr/${code}.svg`)));
                             // Email coupon to user
                             let qrUrl = `https://api.moneyquiz.gr/qr/${code}.svg`;
-                            let ckUrl = `https://api.moneyquiz.gr/v1/coupon/${req.user._id}/${code}`;
-                            email_1.default(req.user.email, `Κουπόνι Shopping Quiz!`, `Κερδίσατε το παρακάτω κουπόνι:<br/><br/><a href="${qrUrl}">${qrUrl}</a><br/><img src=""></img><h3>${coupon.title}</h3><p>${coupon.description}</p><br /><b>Κωδικός: ${code}</b> <br /><b>link ακύρωσης: <a href="${ckUrl}">https://api.moneyquiz.gr/v1/coupon/${req.user._id}/${code}</a></b> <br /><img style="max-width:500px" src="${business.image}"/> <br /><h3>${business.title}</h3> <br /><p>${business.description}</p> `, `Κερδίσατε το παρακάτω κουπόνι:\n\n${qrUrl}\n${coupon.title} ${coupon.description} (${code}) \n${business.title}\n${business.description} `);
+                            email_1.default(req.user.email, `Κουπόνι Shopping Quiz!`, `Κερδίσατε το παρακάτω κουπόνι:<br/><br/><a href="${qrUrl}">${qrUrl}</a><br/><img src=""></img><h3>${coupon.title}</h3><p>${coupon.description}</p><br /><b>Κωδικός: ${code}</b> <br /><b>link ακύρωσης: https://api.moneyquiz.gr/v1/coupon/${req.user._id}/${code}</b> <br /><img style="max-width:500px" src="${business.image}"/> <br /><h3>${business.title}</h3> <br /><p>${business.description}</p> `, `Κερδίσατε το παρακάτω κουπόνι:\n\n${qrUrl}\n${coupon.title} ${coupon.description} (${code}) \n${business.title}\n${business.description} `);
                             //Email coupon to business
                             if (business.email)
                                 email_1.default(business.email, `Κουπόνι Shopping Quiz!`, `Κερδήθηκε, από τον ${req.user.firstName} ${req.user.lastName} (${req.user.email}), το παρακάτω κουπόνι:<br/><br/><a href="${qrUrl}">${qrUrl}</a><br/><b>${coupon.title} ${coupon.description} (${code})</b> <br /><img style="max-width:500px" src="${business.image}"/> <br /><h3>${business.title}</h3> <br /><p>${business.description}</p> <br /><br /> Για να το ακυρωσετε πηγαινετε εδω: http://api.moneyquiz.gr/v1/coupon/${req.user._id}/${code}`, `Κερδήθηκε, από τον ${req.user.firstName} ${req.user.lastName} (${req.user.email}), το παρακάτω κουπόνι:\n\n${qrUrl}\n${coupon.title} ${coupon.description} (${code}) \n${business.title}\n${business.description} `);
@@ -141,7 +141,7 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, crypt
                         // Release coupon lock
                         lock.unlock();
                         // Update user's points
-                        db.collection('users').update({ _id: mongodb.ObjectID(req.user._id) }, { $inc: { points: +session.score } });
+                        db.collection('system.users').update({ _id: mongodb.ObjectID(req.user._id) }, { $inc: { points: +session.score } });
                     }
                 });
             }

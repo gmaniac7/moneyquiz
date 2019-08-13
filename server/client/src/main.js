@@ -168,7 +168,7 @@ angular.module('quizApp').directive('mongoTable', function() {
 				fd.append("file", inputElement.files[0]);
 				var xhr = new XMLHttpRequest();
 				xhr.addEventListener("load", function(res) {
-					var url = 'https://admin.moneyquiz.gr/uploads/' + res.currentTarget.responseText;
+					var url = 'http://admin.moneyquiz.gr/uploads/' + res.currentTarget.responseText;
 					$scope.data.forEach(function(e) {
 						e._id == $(inputElement).attr('data-rowid') && (e[$(inputElement).attr('data-fieldkey')] = url);
 					});
@@ -199,7 +199,7 @@ angular.module('quizApp').directive('mongoTable', function() {
 
 			$scope.customActions = {
 				downloadUsersThatWon: function(obj){
-					var win = window.open(`https://admin.moneyquiz.gr/files/won_coupons/${$scope.getValueFromKeyPath(obj, '_id')}`, '_blank');
+					var win = window.open(`http://admin.moneyquiz.gr/files/won_coupons/${$scope.getValueFromKeyPath(obj, '_id')}`, '_blank');
 					if (win) {
 						//Browser has allowed it to be opened
 						win.focus();
@@ -209,7 +209,7 @@ angular.module('quizApp').directive('mongoTable', function() {
 					}
 				},
 				openAddCodesToCoupon: function(obj){
-					var win = window.open(`https://admin.moneyquiz.gr/coupon/${$scope.getValueFromKeyPath(obj, '_id')}/couponcodes/massive`, '_blank');
+					var win = window.open(`http://admin.moneyquiz.gr/coupon/${$scope.getValueFromKeyPath(obj, '_id')}/couponcodes/massive`, '_blank');
 					if (win) {
 						//Browser has allowed it to be opened
 						win.focus();

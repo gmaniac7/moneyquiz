@@ -19,7 +19,7 @@
   "exclude": [
     "node_modules"
   ],
-  "compileOnSave": false,
+  "compileOnSave": true,
   "atom": {
     "rewriteTsconfig": false
   }

@@ -5,7 +5,7 @@ module.exports = async ({app, auth, mongodb, redis, uuid, db, redlock, shuffle, 
   app.router.post('/v1/register', async (req, res, next) => {
     try {
       let [emailSubject, emailHtml, emailText] = (await db.collection('vars').findOne({ key: 'registerEmailTemplate' })).value;
-      let user = await db.collection('users').findOne({ email: req.body.username });
+      let user = await db.collection('system.users').findOne({ email: req.body.username });
       if (user)
         res.status(402).send('User exists.');
       else {

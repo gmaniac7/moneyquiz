@@ -3,10 +3,10 @@ module.exports = ({app, auth, mongodb, redis, uuid, db, redlock, shuffle, decryp
   app.router.get('/v1/verify/:info', async (req, res, next) => {
     try {
       let info = JSON.parse(decrypt(req.params.info));
-      let user = await db.collection('users').findOne({ email: info.username });
+      let user = await db.collection('system.users').findOne({ email: info.username });
       let user2 = null;
       if(info.fbid)
-        user2 = await db.collection('users').findOne({ fbid: info.fbid });
+        user2 = await db.collection('system.users').findOne({ fbid: info.fbid });
 
       if (user || user2)
         res.status(402).send('User exists.');

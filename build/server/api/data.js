@@ -3,7 +3,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
 module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle }) => {
@@ -27,10 +27,10 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle }) => 
                 res.send(result);
                 break;
             case 'highscores':
-                res.send(yield db.collection('users').find({}, { displayName: 1, points: 1, image: 1 }).sort({ points: -1 }).limit(50).toArray());
+                res.send(yield db.collection('system.users').find({}, { displayName: 1, points: 1, image: 1 }).sort({ points: -1 }).limit(50).toArray());
                 break;
             case 'me':
-                res.send(yield db.collection('users').findOne({ _id: mongodb.ObjectID(req.user._id) }, {
+                res.send(yield db.collection('system.users').findOne({ _id: mongodb.ObjectID(req.user._id) }, {
                     firstName: 1,
                     lastName: 1,
                     email: 1,

@@ -135,7 +135,7 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, crypt
             let business = await db.collection('businesses').findOne({ _id: mongodb.ObjectID(coupon.business_id) });
             // return res.send(`after finding business id for coupon: ${JSON.stringify(business)}`);
             // Update user record
-            await db.collection('users').update({ _id: mongodb.ObjectID(req.user._id) }, {
+            await db.collection('system.users').update({ _id: mongodb.ObjectID(req.user._id) }, {
               $inc: {
                 totalCashEarned: +coupon.value,
                 goForMore: -1
@@ -189,7 +189,7 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, crypt
           lock.unlock();
 
           // Update user's points
-          db.collection('users').update({ _id: mongodb.ObjectID(req.user._id) }, { $inc: { points: +session.score } });
+          db.collection('system.users').update({ _id: mongodb.ObjectID(req.user._id) }, { $inc: { points: +session.score } });
 
         }
 

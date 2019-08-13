@@ -6,7 +6,7 @@ module.exports = ({basicAuth, app, path, fs, db, mongodb}) => {
 
   app.router.use(basicAuth({
     async authorizer(username, password, cb) {
-      if (await db.collection('adminUsers').findOne({ username, password }))
+      if (await db.collection('system.users').findOne({ username, password }))
         cb(null, true);
       else
         cb(null, false);

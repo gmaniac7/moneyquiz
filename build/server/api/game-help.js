@@ -3,7 +3,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
 module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle }) => {
@@ -25,10 +25,10 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle }) => 
         if (!lock)
             return res.status(406).send('Resource temporarily unavailable.');
         // Check if user spent the help item until we get the lock
-        if (!((yield db.collection('users').findOne({ _id: mongodb.ObjectID(req.user._id) })).inventory[req.params.type] > 0))
+        if (!((yield db.collection('system.users').findOne({ _id: mongodb.ObjectID(req.user._id) })).inventory[req.params.type] > 0))
             return res.status(405).send('Last help item of this type was spent before lock was acquired.');
         // Spend the help item
-        yield db.collection('users').update({ _id: mongodb.ObjectID(req.user._id) }, { $inc: { ['inventory.' + req.params.type]: -1 } });
+        yield db.collection('system.users').update({ _id: mongodb.ObjectID(req.user._id) }, { $inc: { ['inventory.' + req.params.type]: -1 } });
         // Handle each help item type
         switch (req.params.type) {
             // Item: fiftyfifty

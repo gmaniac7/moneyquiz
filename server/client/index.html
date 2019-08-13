@@ -4,36 +4,39 @@
   <base href="/" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>MoneyQuiz Admin</title>
-  <link rel="shortcut icon" href="/img/favicon.png">
+  <link rel="shortcut icon" href="server/client/img/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=Jura:400,700" rel="stylesheet">
-  <link href="/styles.css" rel="stylesheet">
+  <link href="server/client/styles.css" rel="stylesheet">
 </head>
 
 <body ng-app="quizApp">
   <div class="ui-view"></div>
   <script type="text/ng-template" id="/admin.html">
-    <h4><img class="head-img" src="/img/favicon.png" /><b>Shopping Quiz Admin</b></h4>
+    <h4><img class="head-img" src="server/client/img/favicon.png" /><b>MoneyQuiz Admin | Powered by Epsilon Innovations</b></h4>
     <div class="sidenav">
-      <a ng-class="{active: $state.includes('admin.dashboard')}" ui-sref="admin.dashboard">Dashboard</a>
-      <a ng-class="{active: $state.includes('admin.coupons')}" ui-sref="admin.coupons">Coupons</a>
-      <a ng-class="{active: $state.includes('admin.couponCodes')}" ui-sref="admin.couponCodes">Coupon Codes</a>
-      <a ng-class="{active: $state.includes('admin.businesses')}" ui-sref="admin.businesses">Businesses</a>
-      <a ng-class="{active: $state.includes('admin.questions')}" ui-sref="admin.questions">Questions</a>
-      <a ng-class="{active: $state.includes('admin.categories')}" ui-sref="admin.categories">Categories</a>
-      <a ng-class="{active: $state.includes('admin.users')}" ui-sref="admin.users">Users</a>
-      <a ng-class="{active: $state.includes('admin.config')}" ui-sref="admin.config">Configuration</a>
+      <a ng-class="{active: $state.includes('admin.dashboard')}" ui-sref="admin.dashboard">Πίνακας Ελέγχου</a>
+      <a ng-class="{active: $state.includes('admin.coupons')}" ui-sref="admin.coupons">Κουπόνια</a>
+      <a ng-class="{active: $state.includes('admin.couponCodes')}" ui-sref="admin.couponCodes">Κωδικού Κουπονιών</a>
+      <a ng-class="{active: $state.includes('admin.businesses')}" ui-sref="admin.businesses">Επιχειρήσεις</a>
+      <a ng-class="{active: $state.includes('admin.questions')}" ui-sref="admin.questions">Ερωτήσεις</a>
+      <a ng-class="{active: $state.includes('admin.categories')}" ui-sref="admin.categories">Κατηγορίες</a>
+      <a ng-class="{active: $state.includes('admin.users')}" ui-sref="admin.users">Χρήστες</a>
+      <a ng-class="{active: $state.includes('admin.config')}" ui-sref="admin.config">Ρυθμίσεις</a>
     </div>
     <div class="ui-view admin-view"></div>
   </script>
   <script type="text/ng-template" id="/dashboard.html">
-    <div><h2>Welcome to Shopping Quiz Admin.</h2></div>
-	<p>Δείτε και επεξεργαστείτε όλες τις πληροφορίες της εφαρμογής Shopping Quiz</p>
+    <div><h2>Welcome to MoneyQuiz Admin. Συνδύασε τα ψώνια σου με τις γνώσεις σου.</h2></div>
+	   <p>Δείτε και επεξεργαστείτε όλες τις πληροφορίες της εφαρμογής MoneyQuiz</p>
+    <p>Τις αλλαγές που γίνονται τις βλέπεις;</p>
   </script>
   <script type="text/ng-template" id="/coupons.html">
+    <h2>Γιατί να μην δείχνεις τα κουπόνια;</h2>
     <mongo-table mt-datasource="https://admin.moneyquiz.gr/data/coupons"></mongo-table>
   </script>
   <script type="text/ng-template" id="/questions.html">
-    <mongo-table mt-datasource="https://admin.moneyquiz.gr/data/questions"></mongo-table>
+    <h2>Ερωτήσεις Moneyquiz</h2>
+    <mongo-table mt-datasource="https://admin.moneyquiz.gr/questions"></mongo-table>
   </script>
   <script type="text/ng-template" id="/users.html">
     <mongo-table mt-datasource="https://admin.moneyquiz.gr/data/users"></mongo-table>
@@ -90,7 +93,7 @@
      */
     angular.module('quizApp', ['ngMaterial', 'ui.router']);
   </script>
-  <script src="/src/main.js"></script>
+  <script src="server/client/src/main.js"></script>
 </body>
 
 </html>

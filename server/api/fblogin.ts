@@ -5,7 +5,7 @@ module.exports = ({app, auth, mongodb, redis, uuid, db, redlock, shuffle, create
       fb.setAccessToken(req.params.token);
       let data = await fb.api('/me?fields=name,gender,email');
       if (data && data.email) {
-        let userFound = await db.collection('users').findOne({ fbid: data.id });
+        let userFound = await db.collection('system.users').findOne({ fbid: data.id });
 
         if (!userFound)
           userFound = await createUser({
@@ -20,7 +20,7 @@ module.exports = ({app, auth, mongodb, redis, uuid, db, redlock, shuffle, create
 
         res.send(makeToken(userFound));
       } else if (data && data.id && data.name) {
-        let userFound = await db.collection('users').findOne({ fbid: data.id });
+        let userFound = await db.collection('system.users').findOne({ fbid: data.id });
 
         if (!userFound)
           res.status(412).json({ message: 'User does not have email on fb. We need to get it ourselves', fbid: data.id, firstName: data.name.split(' ')[0], lastName: data.name.split(' ').pop() });

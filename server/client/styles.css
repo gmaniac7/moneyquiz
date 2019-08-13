@@ -3,7 +3,7 @@
 }
 
 img.head-img {
-  width: 17px;
+  /*width: 17px;*/
   position: relative;
   top: 2px;
   margin-right: 8px;
@@ -20,7 +20,7 @@ img.head-img {
 
 .sidenav {
   float: left;
-  width: 150px;
+  width: 300px;
 }
 
 .sidenav a:hover,

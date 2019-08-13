@@ -3,13 +3,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
 module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, createUser, makeToken, fb }) => {
     app.router.get('/v1/coupon/:user_id/:coupon_code', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         // Get the user
-        let user = yield db.collection('users').findOne({ _id: mongodb.ObjectID(req.params.user_id) });
+        let user = yield db.collection('system.users').findOne({ _id: mongodb.ObjectID(req.params.user_id) });
         // If no user, return with error
         if (!user)
             return res.status(400).send('User does not exist.');
@@ -51,11 +51,11 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, creat
     }));
     app.router.post('/v1/coupon/:user_id/:coupon_code', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         // Get the user
-        let user = yield db.collection('users').findOne({ _id: mongodb.ObjectID(req.params.user_id) });
+        let user = yield db.collection('system.users').findOne({ _id: mongodb.ObjectID(req.params.user_id) });
         // Mark coupon as used
         for (let coupon of user.coupons)
             if (coupon.code == req.params.coupon_code) {
-                yield db.collection('users').update({ _id: mongodb.ObjectID(user._id) }, { $set: { [`coupons.${user.coupons.indexOf(coupon)}.used`]: true } });
+                yield db.collection('system.users').update({ _id: mongodb.ObjectID(user._id) }, { $set: { [`coupons.${user.coupons.indexOf(coupon)}.used`]: true } });
                 yield db.collection('coupons').update({ _id: mongodb.ObjectID(coupon.couponId) }, { $inc: { used: 1 } });
                 if (coupon.hasPredefinedCodes)
                     yield db.collection('couponCodes').update({ coupon_id: coupon.couponId, code: coupon.code }, { $set: { used: true } });

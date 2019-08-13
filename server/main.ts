@@ -43,7 +43,7 @@ try {
 (async () => {
   let mongoAuth = `admin:${encodeURIComponent(`admin123`)}@`;
   // let mongoUrl = `mongodb://${mongoAuth}quizapp:27017/quizapp?authSource=admin`;
-  let mongoUrl = `mongodb://${mongoAuth}35.233.36.227:27017/quizapp?authSource=admin`;
+  let mongoUrl = `mongodb://${mongoAuth}35.233.36.227:27017/admin?authSource=admin`;
 
   db = await new mongodb.MongoClient().connect(mongoUrl);
   console.log('Mongodb connected.');
@@ -79,15 +79,17 @@ try {
 const app = new Server({
   port: 8080,
   bind: 'localhost',
+  //bind: '35.233.36.227',
   // bind: 'quizapp',
-  static: path.resolve('./server/client')
+  static: path.resolve('../../server/client')
 });
-
+console.log(app);
 app.once('listening', () => console.log('Server listening.'));
 
 // Load call handlers
 function loadModules() {
   // CORS
+  console.log(app.router);
   app.router.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'x-sqtoken, content-type');
@@ -99,6 +101,7 @@ function loadModules() {
 
   // App calls
   for (let file of fs.readdirSync('./server/api')){
+    console.log("Files were found. Stop something. Let's create something good");
     require(`./api/${file.split(/\.ts$/)[0]}`)({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, encrypt, decrypt, crypto, secret, makeToken, createUser, fb, rollbar });
   }
   // Admin calls
@@ -122,7 +125,7 @@ async function auth(req, res, next) {
   let [data, sig] = token && token.split('.');
   if (token && sig == crypto.createHmac('sha256', secret).update(data).digest('base64')) {
     let {_id} = JSON.parse(new Buffer(data, 'base64').toString('utf8'));
-    let user = await db.collection('users').findOne({ _id: mongodb.ObjectID(_id) });
+    let user = await db.collection('system.users').findOne({ _id: mongodb.ObjectID(_id) });
     if (user) {
       if (user.access) {
         req.user = user;
@@ -150,7 +153,7 @@ async function createUser(document) {
   });
   document.totalCashEarned = 0;
   document.email = document.email.toLowerCase();
-  return (await db.collection('users').insert(document)).ops[0];
+  return (await db.collection('system.users').insert(document)).ops[0];
 }
 
 // Generates token

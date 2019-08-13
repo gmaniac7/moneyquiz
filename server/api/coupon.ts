@@ -3,7 +3,7 @@ module.exports = ({app, auth, mongodb, redis, uuid, db, redlock, shuffle, create
   app.router.get('/v1/coupon/:user_id/:coupon_code', async (req, res, next) => {
 
     // Get the user
-    let user = await db.collection('users').findOne({ _id: mongodb.ObjectID(req.params.user_id) });
+    let user = await db.collection('system.users').findOne({ _id: mongodb.ObjectID(req.params.user_id) });
 
     // If no user, return with error
     if (!user)
@@ -54,12 +54,12 @@ module.exports = ({app, auth, mongodb, redis, uuid, db, redlock, shuffle, create
   app.router.post('/v1/coupon/:user_id/:coupon_code', async (req, res, next) => {
 
     // Get the user
-    let user = await db.collection('users').findOne({ _id: mongodb.ObjectID(req.params.user_id) });
+    let user = await db.collection('system.users').findOne({ _id: mongodb.ObjectID(req.params.user_id) });
 
     // Mark coupon as used
     for (let coupon of user.coupons)
       if (coupon.code == req.params.coupon_code) {
-        await db.collection('users').update({ _id: mongodb.ObjectID(user._id) }, { $set: { [`coupons.${user.coupons.indexOf(coupon)}.used`]: true } });
+        await db.collection('system.users').update({ _id: mongodb.ObjectID(user._id) }, { $set: { [`coupons.${user.coupons.indexOf(coupon)}.used`]: true } });
         await db.collection('coupons').update({ _id: mongodb.ObjectID(coupon.couponId) }, { $inc: { used: 1 } });
 
         if(coupon.hasPredefinedCodes)

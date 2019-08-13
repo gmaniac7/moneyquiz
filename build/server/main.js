@@ -4,12 +4,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const Server_1 = require("./classes/Server");
 process.title = 'quizapp';
-//process.title = 'moneyquizapp';
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
 const basicAuth = require('express-basic-auth');
@@ -43,10 +43,8 @@ catch (err) {
     loadSecret();
 }
 (() => __awaiter(this, void 0, void 0, function* () {
-    //let mongoAuth = `admin:${encodeURIComponent(`}EJ}WX/,D6S#<kes`)}@`;
     let mongoAuth = `admin:${encodeURIComponent(`admin123`)}@`;
     // let mongoUrl = `mongodb://${mongoAuth}quizapp:27017/quizapp?authSource=admin`;
-    //let mongoUrl = `mongodb://${mongoAuth}104.199.107.178:27017/quizapp?authSource=admin`;
     let mongoUrl = `mongodb://${mongoAuth}35.233.36.227:27017/admin?authSource=admin`;
     db = yield new mongodb.MongoClient().connect(mongoUrl);
     console.log('Mongodb connected.');
@@ -76,13 +74,16 @@ catch (err) {
 const app = new Server_1.default({
     port: 8080,
     bind: 'localhost',
+    //bind: '35.233.36.227',
     // bind: 'quizapp',
-    static: path.resolve('./server/client')
+    static: path.resolve('../../server/client')
 });
+console.log(app);
 app.once('listening', () => console.log('Server listening.'));
 // Load call handlers
 function loadModules() {
     // CORS
+    console.log(app.router);
     app.router.use((req, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Headers', 'x-sqtoken, content-type');
@@ -93,6 +94,7 @@ function loadModules() {
     app.router.options('*', (req, res) => res.status(200).end());
     // App calls
     for (let file of fs.readdirSync('./server/api')) {
+        console.log("Files were found. Stop something. Let's create something good");
         require(`./api/${file.split(/\.ts$/)[0]}`)({ app, auth, mongodb, redis, uuid, db, redlock, shuffle, encrypt, decrypt, crypto, secret, makeToken, createUser, fb, rollbar });
     }
     // Admin calls
@@ -115,7 +117,7 @@ function auth(req, res, next) {
         let [data, sig] = token && token.split('.');
         if (token && sig == crypto.createHmac('sha256', secret).update(data).digest('base64')) {
             let { _id } = JSON.parse(new Buffer(data, 'base64').toString('utf8'));
-            let user = yield db.collection('users').findOne({ _id: mongodb.ObjectID(_id) });
+            let user = yield db.collection('system.users').findOne({ _id: mongodb.ObjectID(_id) });
             if (user) {
                 if (user.access) {
                     req.user = user;
@@ -146,7 +148,7 @@ function createUser(document) {
         });
         document.totalCashEarned = 0;
         document.email = document.email.toLowerCase();
-        return (yield db.collection('users').insert(document)).ops[0];
+        return (yield db.collection('system.users').insert(document)).ops[0];
     });
 }
 // Generates token

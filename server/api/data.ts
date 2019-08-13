@@ -15,8 +15,8 @@ module.exports = ({ app, auth, mongodb, redis, uuid, db, redlock, shuffle }) => 
         result.forEach(v => v.business = couponBusinesses.filter(b => v.business_id == b._id)[0]);
         res.send(result);
         break;
-      case 'highscores': res.send(await db.collection('users').find({}, { displayName: 1, points: 1, image: 1 }).sort({ points: -1 }).limit(50).toArray()); break;
-      case 'me': res.send(await db.collection('users').findOne({ _id: mongodb.ObjectID(req.user._id) }, {
+      case 'highscores': res.send(await db.collection('system.users').find({}, { displayName: 1, points: 1, image: 1 }).sort({ points: -1 }).limit(50).toArray()); break;
+      case 'me': res.send(await db.collection('system.users').findOne({ _id: mongodb.ObjectID(req.user._id) }, {
         firstName: 1,
         lastName: 1,
         email: 1,
